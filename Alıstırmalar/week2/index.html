@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27-07-2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <nav>          
+        <a>
+            <h1>Beyza Nur Keskin's Notebook</h1>        
+        </a>
+    </nav>
+
+<div class="page-wrapper">
+    <div class="page-content">
+        <img src="./img/bg.jpg" alt="Background">
+        <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab delectus nobis sequi. Excepturi suscipit, dolores facere velit quo cumque doloribus voluptate, iure, consequuntur magnam assumenda perspiciatis neque magni expedita quod.
+            <br>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem placeat voluptatibus incidunt maiores ab delectus corrupti beatae blanditiis laboriosam quaerat? Perspiciatis praesentium voluptatibus non quae! Repudiandae aut cumque officiis vero.
+            <br>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates totam magnam exercitationem labore cumque recusandae. Numquam nisi consectetur doloribus distinctio! Aliquam nulla sequi mollitia nostrum qui rem numquam illum omnis!
+        </p>
+    </div>
+
+    <div class="main-layout">
+        <div class="form-container">
+            <input type="text" id="taskInput" placeholder="New task...">
+            <button onclick="addTask()">Add</button>
+        </div>
+
+        <div class="list-container">
+            <ul id="taskList">
+                <li>
+                    <span>Learn HTML/CSS/JavaScript</span>
+                    <button class="delete-btn" onclick="deleteTask(this)">delete</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+function addTask() {
+    const input = document.getElementById('taskInput');
+    const text = input.value.trim();
+
+    if (text === "") return;
+
+    const li = document.createElement('li');
+
+    const span = document.createElement('span');
+    span.className = 'task-text';
+    span.textContent = text;
+    span.onclick = function () { completeTask(this); };
+
+    const btn = document.createElement('button');
+    btn.className = 'delete-btn';
+    btn.textContent = 'delete';
+    btn.onclick = function () { deleteTask(this); };
+
+    li.appendChild(span);
+    li.appendChild(btn);
+
+    document.getElementById('taskList').appendChild(li);
+
+    input.value = "";
+    input.focus();
+}
+
+function completeTask(el) {
+    el.classList.toggle('completed');
+}
+
+function deleteTask(el) {
+    el.parentElement.remove();
+}
+</script>
+</body>
+</html>

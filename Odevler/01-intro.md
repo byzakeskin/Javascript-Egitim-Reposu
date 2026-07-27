@@ -1,0 +1,8 @@
+- VS Code kurulumu
+- Node js son sürüm kurulumu
+- Git kurulumu
+- Elements, Console, Network pencerelerinde neler var?
+- Client nedir? Server nedir?
+- HTTP Request/Response nedir? Bir adrese gidince neler oluyor?
+- URL anatomisi, http status kodları nelerdir?
+- Frontend, backend, veritabanı üçlüsünün kuşbakışı olarak tanımı nedir?

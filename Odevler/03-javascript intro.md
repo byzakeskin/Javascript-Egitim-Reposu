@@ -1,0 +1,10 @@
+- let ve const — değişken tanımlama. 
+- Temel tipler: sayı (number), yazı (string), doğru/yanlış (boolean).
+- undefined ve null — ikisi de "boşluk" ama farklılar, farkı öğren.
+- == vs === — fark ne, neden hep === kullanıyoruz.
+- Truthy / falsy — if içine bool olmayan bir şey koyunca ne oluyor, hangi değerler "falsy" sayılıyor (0, "", null, undefined...).
+- Fonksiyonlar: normal fonksiyon tanımı, parametre, return.
+- Arrow function (=>) — fonksiyonun kısa yazımı.
+- Temel string işlemleri: birleştirme, template literal (merhaba ${isim}).
+- Array temeli: oluşturma, elemana erişme, ekleme/çıkarma.
+- Object temeli: anahtar/değer ile veri tutma, alanlara erişme.
