@@ -65,9 +65,9 @@ const sortedNums = nums4.sort((a, b) => a - b);
 console.log(sortedNums); 
 // [1, 2, 3, 4, 5, 6, 7, 8, 9] - array elemanlarını küçükten büyüğe sıralar
 
-let arr1=[1,2,3];
-let arr2=[4,5,6];
-let combined = arr1.concat(arr2);
+let array1=[1,2,3];
+let array2=[4,5,6];
+let combined = array1.concat(array2);
 console.log(combined); 
 // [1, 2, 3, 4, 5, 6] - iki array'i birleştirir
 

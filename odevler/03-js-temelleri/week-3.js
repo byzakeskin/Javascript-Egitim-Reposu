@@ -1,7 +1,8 @@
 //let-const değişken tanımlama.
-
+/*
 console.log(name);
 let name = "Beyza";
+
 //reference error verir, değişken tanımlanmadan önce kullanılamaz. let ve const ile tanımlanan değişkenler hoisting yapılmaz.
 
 console.log(age);
@@ -191,4 +192,4 @@ for (const [key, value] of Object.entries(kisi)) {
 for (const key in kisi) {
   console.log(key, kisi[key]);
 }
-
+*/
