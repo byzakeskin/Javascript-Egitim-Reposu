@@ -1,0 +1,20 @@
+p{
+    color:blue;
+}
+    
+
+div p {
+  color: red;
+}
+
+div, p {
+    color:yellow;
+}
+
+p+div{
+    color:green;
+}
+
+.container {
+    color: royalblue;
+}
