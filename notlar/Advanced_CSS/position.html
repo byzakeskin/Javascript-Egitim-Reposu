@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Position</title>
+</head>
+
+<style>
+    #div1{
+        background-color: pink;
+        width: 200px;
+        height: 200px;
+        margin: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #div2{
+        background-color: lightskyblue;
+        width: 200px;
+        height: 200px;
+        margin:5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        top: 50px;
+        left: 50px;
+    }
+    #div3{
+        background-color: lightgoldenrodyellow;
+        width: 200px;
+        height: 200px;
+        margin:5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+    }
+</style>
+<body>
+    <div id="div1">Div 1</div>
+    <div id="div2">Div 2</div>
+    <div id="div3">Div 3</div>
+</body>
+</html>
