@@ -1,45 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>27-07-2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css"
+        integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
-    <nav>          
-        <a>
-            <h1>Beyza Nur Keskin's Notebook</h1>        
-        </a>
+    <nav>
+        <div class="navbar">
+            <i class="fa-brands fa-bluesky"></i>
+            <a href="index.html">Beyza Nur Keskin</a>
+        </div>
     </nav>
+    <div class="main">
 
-<div class="page-wrapper">
-    <div class="page-content">
-        <img src="./img/bg.jpg" alt="Background">
-        <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab delectus nobis sequi. Excepturi suscipit, dolores facere velit quo cumque doloribus voluptate, iure, consequuntur magnam assumenda perspiciatis neque magni expedita quod.
-            <br>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem placeat voluptatibus incidunt maiores ab delectus corrupti beatae blanditiis laboriosam quaerat? Perspiciatis praesentium voluptatibus non quae! Repudiandae aut cumque officiis vero.
-            <br>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates totam magnam exercitationem labore cumque recusandae. Numquam nisi consectetur doloribus distinctio! Aliquam nulla sequi mollitia nostrum qui rem numquam illum omnis!
-        </p>
-    </div>
 
-    <div class="main-layout">
-        <div class="form-container">
-            <input type="text" id="taskInput" placeholder="New task...">
-            <button onclick="addTask()">Add</button>
+        <div class="page-content">
+            <img src="./img/bg.jpg" alt="cat in a field of purple flowers">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto fugit veniam cupiditate culpa
+                quibusdam earum dolores eveniet voluptas, assumenda dignissimos accusantium sit impedit provident nemo
+                amet sunt minima aliquam! Iste. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed, optio
+                quae! Necessitatibus vel, ipsam autem, blanditiis illo debitis mollitia odio adipisci fugiat, quis
+                veritatis. Quibusdam recusandae laboriosam libero! Optio, nostrum. Lorem ipsum dolor sit, amet
+                consectetur adipisicing elit. Non odit voluptas sint iusto laudantium neque animi quia suscipit natus!
+                Commodi perspiciatis ipsa possimus est omnis, a impedit autem odio ea? Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Nulla iure veritatis voluptatum eaque minus quia rerum incidunt cumque,
+                maiores tenetur est eos alias, eligendi similique necessitatibus culpa corrupti quidem sed! Lorem ipsum
+                dolor sit amet consectetur adipisicing elit. Autem tenetur voluptates iste amet dolor quibusdam totam
+                odio
+                obcaecati? Dolorem libero deserunt provident aliquid dolore ipsam voluptate nemo optio, tempora eaque.
+                Lorem
+                ipsum, dolor sit amet consectetur adipisicing elit. Eaque iste nulla sapiente perspiciatis repudiandae!
+                Perspiciatis, officiis similique illum enim in cumque aliquam nam, maiores eius sapiente, molestias
+                earum
+                consequatur!</p>
         </div>
 
-        <div class="list-container">
-            <ul id="taskList">
-                <li>
-                    <span>Learn HTML/CSS/JavaScript</span>
-                    <button class="delete-btn" onclick="deleteTask(this)">delete</button>
-                </li>
-            </ul>
+        <div class="container">
+            <h1 class="header" id="page-header">
+                Todo List
+            </h1>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>New Task</span>
+                </div>
+                <div class="card-body">
+                    <input id="task-input" type="text" placeholder="Type a new task">
+                    <button class="btn" id="add-btn">Add</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>Task List</span>
+                    <button class="btn" id="delete-all-btn">Delete All</button>
+                </div>
+
+                <div class="card-body">
+                    <ul>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<script src="./app.js"></script>
+
+    <script src="./app.js"></script>
 </body>
 </html>

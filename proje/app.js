@@ -1,34 +1,87 @@
-function addTask() {
-    const input = document.getElementById('taskInput');
-    const text = input.value.trim();
+let gorevler = [
+    { id: 1, metin: "ekmek al", bitti: false },
+    { id: 2, metin: "faturayi ode", bitti: true }
+];
 
-    if (text === "") return;
+const input = document.querySelector("#task-input");
+const addBtn = document.querySelector("#add-btn");
+const liste = document.querySelector(".card-body ul");
+const deleteAllBtn = document.querySelector("#delete-all-btn");
 
-    const li = document.createElement('li');
+function render() {
+    liste.textContent = "";
 
-    const span = document.createElement('span');
-    span.className = 'task-text';
-    span.textContent = text;
-    span.onclick = function () { completeTask(this); };
+    const liElemanlari = gorevler.map(function (gorev) {
+        const li = document.createElement("li");
 
-    const btn = document.createElement('button');
-    btn.className = 'delete-btn';
-    btn.textContent = 'delete';
-    btn.onclick = function () { deleteTask(this); };
+        const metinSpan = document.createElement("span");
+        metinSpan.textContent = gorev.metin;
 
-    li.appendChild(span);
-    li.appendChild(btn);
+        if (gorev.bitti) {
+            metinSpan.classList.add("completed");
+        } else {
+            metinSpan.classList.remove("completed");
+        }
 
-    document.getElementById('taskList').appendChild(li);
+        li.appendChild(metinSpan);
 
+        li.addEventListener("click", function () {
+            gorevTamamla(gorev.id);
+        });
+
+        const silBtn = document.createElement("button");
+        silBtn.textContent = "Delete";
+        silBtn.addEventListener("click", function (e) {
+            e.stopPropagation(); // sil'e tıklayınca li'nin click'i de tetiklenmesin
+            gorevSil(gorev.id);
+        });
+
+        li.appendChild(silBtn);
+        return li;
+    });
+
+    liElemanlari.forEach(function (li) {
+        liste.appendChild(li);
+    });
+}
+
+function gorevTamamla(id) {
+    gorevler = gorevler.map(function (gorev) {
+        if (gorev.id === id) {
+            return { ...gorev, bitti: !gorev.bitti };
+        }
+        return gorev;
+    });
+    render();
+}
+
+function gorevSil(id) {
+    gorevler = gorevler.filter(function (gorev) {
+        return gorev.id !== id;
+    });
+    render();
+}
+
+addBtn.addEventListener("click", function () {
+    const yeniMetin = input.value;
+
+    if (yeniMetin === "") {
+        return;
+    }
+
+    gorevler.push({
+        id: Date.now(),
+        metin: yeniMetin,
+        bitti: false
+    });
+
+    render();
     input.value = "";
-    input.focus();
-}
+});
 
-function completeTask(el) {
-    el.classList.toggle('completed');
-}
+deleteAllBtn.addEventListener("click", function () {
+    gorevler = [];
+    render();
+});
 
-function deleteTask(el) {
-    el.parentElement.remove();
-}
+render();
