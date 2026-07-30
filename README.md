@@ -18,3 +18,4 @@ Mangodo staj süreci boyunca yapılan ödevlerin, günlük ilerleme raporların�
 - [x] HTML/CSS, box model, flexbox, grid
 - [x] JavaScript temelleri (değişkenler, tipler, fonksiyonlar)
 - [x] Array metotları
+- [x] DOM manipülasyonu, array-driven UI mimarisi ve temel XSS güvenliği
