@@ -19,10 +19,8 @@ function render() {
 
         if (gorev.bitti) {
             metinSpan.classList.add("completed");
-        } else {
-            metinSpan.classList.remove("completed");
-        }
-
+        } 
+        
         li.appendChild(metinSpan);
 
         li.addEventListener("click", function () {
