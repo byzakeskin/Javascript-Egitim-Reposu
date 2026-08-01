@@ -60,10 +60,9 @@ function gorevSil(id) {
     render();
 }
 
-function filterSplice() {
+function filterSplice(hedefId) {
     const dizi1 = [...gorevler];
     const dizi2 = [...gorevler];
-    const hedefId = dizi1[0]?.id;
 
     console.log("filter öncesi:", dizi1);
     const filtrelenmis = dizi1.filter(function (g) {
@@ -76,12 +75,18 @@ function filterSplice() {
     const index = dizi2.findIndex(function (g) {
         return g.id === hedefId;
     });
-    const cikarilan = dizi2.splice(index, 1);
-    console.log("splice ile çıkarılan:", cikarilan);
+    console.log("bulunan index:", index);
+
+    if (index !== -1) {
+        const cikarilan = dizi2.splice(index, 1);
+        console.log("splice ile çıkarılan:", cikarilan);
+    } else {
+        console.log("splice: bu id dizide yok, silme yapılmadı");
+    }
     console.log("splice sonrası orijinal dizi:", dizi2);
 }
 
-filterSplice();
+filterSplice(999999999);
 
 addBtn.addEventListener("click", function () {
     const yeniMetin = input.value.trim();
