@@ -62,8 +62,31 @@ function gorevSil(id) {
     render();
 }
 
+function filterSplice() {
+    const dizi1 = [...gorevler];
+    const dizi2 = [...gorevler];
+    const hedefId = dizi1[0]?.id;
+
+    console.log("filter öncesi:", dizi1);
+    const filtrelenmis = dizi1.filter(function (g) {
+        return g.id !== hedefId;
+    });
+    console.log("filter sonrası yeni dizi:", filtrelenmis);
+    console.log("filter sonrası orijinal dizi:", dizi1);
+
+    console.log("splice öncesi:", dizi2);
+    const index = dizi2.findIndex(function (g) {
+        return g.id === hedefId;
+    });
+    const cikarilan = dizi2.splice(index, 1);
+    console.log("splice ile çıkarılan:", cikarilan);
+    console.log("splice sonrası orijinal dizi:", dizi2);
+}
+
+filterSplice();
+
 addBtn.addEventListener("click", function () {
-    const yeniMetin = input.value;
+    const yeniMetin = input.value.trim();
 
     if (yeniMetin === "") {
         return;
