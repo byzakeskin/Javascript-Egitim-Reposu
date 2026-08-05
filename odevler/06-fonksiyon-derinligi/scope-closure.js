@@ -1,3 +1,4 @@
+/*
 //variable scope = where a variable is recognized
 //                 and accessible (local vs global)
 
@@ -19,7 +20,7 @@ function function2(){
 
 //fonksiyonlar diğer fonksiyonların içine bakamaz!
 
-/*
+
 function3();
 
 function function3(){
@@ -31,7 +32,7 @@ function function4(){
     let y = 2;
     console.log(x);
 }
-*/
+
 //bu durumda ReferenceError alırız. y fonksiyon3'de tanımlı değil
 //fonksiyon1 y nin ne olduğunu bilmiyor çünkü onu fonksiyon4'e tanımladık
 
@@ -71,3 +72,93 @@ function functionY(){
 //fonksiyon dışında değişkenim var, 
 //aynı isimde iki değişken daha var
 //ve bunlar farklı kapsamda o zaman önce local version kullanılır
+*/
+
+//let-const block scope
+
+let x = 10; //global scope (herkes erişebilir)
+console.log(x);
+
+function scope() {
+  console.log(x);
+}
+
+scope();
+
+function degisken() {
+  let a = 1; //yalnızca bu fonksiyon içinde erişilebilir değer (local scope)
+  console.log(a);
+}
+//eğer console.log(a); buraya yazsaydım da ReferenceError alırdım
+//fonksiyon dışında erişmeye çalışıyorum ama a değişkenim function (local) scope
+degisken();
+
+if (true) {
+  console.log(x);
+} //eğer console.log(a) yazsaydık: ReferenceError, çünkü başka bir fonksiyon
+//içindeki (global olmayan) değere erişemiyoruz
+
+function method() {
+  if (true) {
+    //blok
+    let kedi = 0;
+    console.log(kedi);
+  }
+  //eğer console.log(kedi); buraya yazsaydım blok içinde oluşturulan değişkene
+  //fonksiyon içinden erişilmeye çalışıldığı için
+  //ReferenceError hatası alırdım
+}
+
+method();
+//var - let/const farkı
+if (true) {
+  var lokum = "kedi";
+}
+
+console.log(lokum); //var ile ttanımladığım için erişebildim, sağlıklı değil ❌
+
+if (true) {
+  let poncik = "kedi";
+  console.log(poncik);
+}
+
+//console.log(ponçik); buraya yazdığımda ReferenceError alıyorum
+
+function method1() {
+  let disDegisken = 1;
+  function method2() {
+    console.log(disDegisken);
+  }
+}
+
+method1();
+
+function tersMethod1() {
+  function tersMethod2() {
+    let icDegisken = 2;
+  }
+  console.log(icDegisken);
+}
+
+//tersMethod1(); ReferenceError aldım dıştaki fonksiyonum
+// iç fonksiyondaki değere erişemedi
+var a = 100;
+{
+  var a = 10;
+  let b = 20;
+  const c = 30;
+  console.log(a);
+  console.log(b);
+  console.log(c);
+}
+console.log(a);
+//console.log(b);
+//console.log(c);
+//derleme bitince b ve c undefined olur,
+//a var ile tanımlandığı için erişilebilir
+//b ve c erişilemez çünkü blok dışından erişelemezler
+//let & const -> block scope
+//çıktı olarak a = 10 yazdırıldı
+//blok dışında tanımlanan a değişkeni shadowinge uğradı
+//blok dışına let b = 100 deseydim ve blok dışında console.log(b) yazdırsaydım
+//bu sefer b = 20 shadowinge uğrayacak
