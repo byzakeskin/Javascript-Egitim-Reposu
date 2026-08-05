@@ -162,3 +162,22 @@ console.log(a);
 //blok dışında tanımlanan a değişkeni shadowinge uğradı
 //blok dışına let b = 100 deseydim ve blok dışında console.log(b) yazdırsaydım
 //bu sefer b = 20 shadowinge uğrayacak
+
+//fonksiyon bildirimi
+console.log(topla(11,2))
+function topla(a,b){
+    return a+b
+}
+console.log(topla(11,2))
+
+//fonksiyon ifadesi
+//console.log(topla2(11,2)) ->ReferenceError
+const topla2 = function(a,b){return a+b}
+console.log(topla2(11,2))
+
+//arrow function
+//console.log(topla3(11,2)) ->ReferenceError
+const topla3 = (a,b) => {return a+b}
+console.log(topla3(11,2))
+
+//
