@@ -180,4 +180,23 @@ console.log(topla2(11,2))
 const topla3 = (a,b) => {return a+b}
 console.log(topla3(11,2))
 
-//
+//CLOSURES
+
+function sayacUret() {
+    let sayac = 0;
+
+    return function () {
+        sayac+=1;
+        return sayac;
+    };
+}
+
+const sayac1 = sayacUret();
+const sayac2 = sayacUret();
+
+console.log(sayac1()); 
+console.log(sayac1()); 
+console.log(sayac1()); 
+
+console.log(sayac2()); 
+
