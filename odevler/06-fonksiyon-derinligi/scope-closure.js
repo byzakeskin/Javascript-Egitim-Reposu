@@ -89,9 +89,8 @@ function degisken() {
   let a = 1; //yalnızca bu fonksiyon içinde erişilebilir değer (local scope)
   console.log(a);
 }
-//eğer console.log(a); buraya yazsaydım da ReferenceError alırdım
-//fonksiyon dışında erişmeye çalışıyorum ama a değişkenim function (local) scope
 degisken();
+
 
 if (true) {
   console.log(x);
@@ -104,12 +103,15 @@ function method() {
     let kedi = 0;
     console.log(kedi);
   }
-  //eğer console.log(kedi); buraya yazsaydım blok içinde oluşturulan değişkene
+  //Tahminim: eğer console.log(kedi); buraya yazsaydım blok içinde oluşturulan değişkene
   //fonksiyon içinden erişilmeye çalışıldığı için
   //ReferenceError hatası alırdım
 }
-
+//console.log(kedi);
+//Çalıştırdığımda: ReferenceError: kedi is not defined
 method();
+
+
 //var - let/const farkı
 if (true) {
   var lokum = "kedi";
@@ -119,10 +121,13 @@ console.log(lokum); //var ile ttanımladığım için erişebildim, sağlıklı 
 
 if (true) {
   let poncik = "kedi";
-  console.log(poncik);
 }
+//console.log(ponçik); 
 
-//console.log(ponçik); buraya yazdığımda ReferenceError alıyorum
+//Tahminim: buraya yazdığımda ReferenceError alırım 
+//çünkü let blok scope ve değişken blok içine let ile tanımlı 
+//Çalıştırdığımda: ReferenceError: poncik is not defined
+
 
 function method1() {
   let disDegisken = 45;
@@ -148,7 +153,6 @@ function tersMethod1() {
 
 //method1 → method2 (dıştan içe)	✅ closure sayesinde
 //tersMethod1 → tersMethod2 (içten dışa)	❌ ReferenceError
-
 
 var a = 100;
 {
