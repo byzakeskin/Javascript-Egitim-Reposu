@@ -148,9 +148,11 @@ function tersMethod1() {
 
 //method1 → method2 (dıştan içe)	✅ closure sayesinde
 //tersMethod1 → tersMethod2 (içten dışa)	❌ ReferenceError
+
+
 var a = 100;
 {
-  var a = 10;
+  var a = 10; //var blok scope tanımaz
   let b = 20;
   const c = 30;
   console.log(a);
@@ -160,14 +162,44 @@ var a = 100;
 console.log(a);
 //console.log(b);
 //console.log(c);
-//derleme bitince b ve c undefined olur,
+//derleme bitince b ve c ReferenceError, TDZ yüzünden,
 //a var ile tanımlandığı için erişilebilir
 //b ve c erişilemez çünkü blok dışından erişelemezler
 //let & const -> block scope
-//çıktı olarak a = 10 yazdırıldı
-//blok dışında tanımlanan a değişkeni shadowinge uğradı
-//blok dışına let b = 100 deseydim ve blok dışında console.log(b) yazdırsaydım
-//bu sefer b = 20 shadowinge uğrayacak
+//çıktı olarak a = 10 
+
+//Shadowing 
+function disFonksiyon(){
+  let deger = "out";
+
+  function icFonksiyon(){
+    let deger = "in"; //adı aynı değeri farklı
+    console.log(deger);
+  }
+
+  icFonksiyon();
+}
+
+disFonksiyon();
+
+function disFonksiyon2(){
+  let deger = "out2";
+
+  function icFonksiyon2(){
+    console.log(deger); //kendi scopeunda deger yok 
+    // o yüzden dıştakini alır
+  }
+
+  icFonksiyon2();
+}
+
+disFonksiyon2(); //out2 yazdırmasını beklerim
+//İki örnek arasındaki farklar;
+//1- icFonksiyon fonksiyonu kendi degerini tanımladığı için
+//dıştakini gölgeliyor 
+//2- icFonksiyon2 fonksiyonu scope zincirinde yukarı çıkıp
+//dıştaki degeri buluyor yani burada shadowing yok, closure var.✨
+//-----//
 
 //fonksiyon bildirimi
 console.log(topla(11, 2));
