@@ -125,13 +125,16 @@ if (true) {
 //console.log(ponçik); buraya yazdığımda ReferenceError alıyorum
 
 function method1() {
-  let disDegisken = 1;
+  let disDegisken = 45;
   function method2() {
     console.log(disDegisken);
   }
+  return method2;
 }
 
-method1();
+const cagir = method1();
+cagir();
+
 
 function tersMethod1() {
   function tersMethod2() {
@@ -142,6 +145,9 @@ function tersMethod1() {
 
 //tersMethod1(); ReferenceError aldım dıştaki fonksiyonum
 // iç fonksiyondaki değere erişemedi
+
+//method1 → method2 (dıştan içe)	✅ closure sayesinde
+//tersMethod1 → tersMethod2 (içten dışa)	❌ ReferenceError
 var a = 100;
 {
   var a = 10;
