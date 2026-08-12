@@ -169,11 +169,11 @@ console.log(a);
 //console.log(b); -> ReferenceError: b is not defined
 //sadece scope dışı erişim b isminde bir
 //değişkeni bu scope'ta hiç tanımıyor
-{
-  console.log(x); //ReferenceError: Cannot access 'x' before initialization
-  let x = 5; //burada x o blokta zaten var, sadece henüz "let x = 5" satırına
+//{
+//  console.log(x); //ReferenceError: Cannot access 'x' before initialization
+//  let x = 5; //burada x o blokta zaten var, sadece henüz "let x = 5" satırına
 //gelinmediği için initialize edilememiş
-}
+//}
 
 //a var ile tanımlandığı için erişilebilir
 //b ve c erişilemez çünkü blok dışından erişelemezler
@@ -348,11 +348,13 @@ console.log("filter().length ile bitmiş gorev sayısı:", bitenGorevFilter);
 
 //closure değişkenin kendisini tutuyor, çağrıldığı andaki değeri değil
 console.log("let ile:");
-for (let i = 0; i < 3; i++) {
-  setTimeout(() => console.log(i), 100);
-}
+for (let i = 0; i < 3; i++) { //döngü 3 kere dönecek: i=0, i=1, i=2
+  setTimeout(() => console.log(i), 100); //Bu satır i'yi hemen yazdırmıyor, 100ms sonra bu fonksiyonu çalıştır diye devam ediyor
+}//çıktının 0,1,2 olmasını beklerim
+//Çalıştırdığımda: 0,1,2
 
 console.log("var ile:");
 for (var j = 0; j < 3; j++) {
   setTimeout(() => console.log(j), 100);
-}
+}//Tahminim aynı şekilde çıktının: 0,1,2 çıkması yönünde
+//Çalıştırdığımda: 3,3,3
