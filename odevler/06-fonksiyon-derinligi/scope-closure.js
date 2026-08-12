@@ -90,7 +90,8 @@ function degisken() {
   console.log(a);
 }
 degisken();
-
+//console.log(a);
+//Çalıştırdığımda: ReferenceError: a is not defined
 
 if (true) {
   console.log(x);
@@ -121,8 +122,9 @@ console.log(lokum); //var ile ttanımladığım için erişebildim, sağlıklı 
 
 if (true) {
   let poncik = "kedi";
+  console.log(poncik);
 }
-//console.log(ponçik); 
+//console.log(poncik); 
 
 //Tahminim: buraya yazdığımda ReferenceError alırım 
 //çünkü let blok scope ve değişken blok içine let ile tanımlı 
