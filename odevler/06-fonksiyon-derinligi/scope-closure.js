@@ -337,3 +337,14 @@ const bitenGorevFilter = gorevler.filter((gorev) => gorev.bitti).length;
 
 console.log("filter().length ile bitmiş gorev sayısı:", bitenGorevFilter);
 
+
+//closure değişkenin kendisini tutuyor, çağrıldığı andaki değeri değil
+console.log("let ile:");
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 100);
+}
+
+console.log("var ile:");
+for (var j = 0; j < 3; j++) {
+  setTimeout(() => console.log(j), 100);
+}
