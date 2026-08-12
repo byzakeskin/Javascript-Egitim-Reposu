@@ -164,9 +164,15 @@ var a = 100;
   console.log(c);
 }
 console.log(a);
-//console.log(b);
-//console.log(c);
-//derleme bitince b ve c ReferenceError, TDZ yüzünden,
+//console.log(b); -> ReferenceError: b is not defined
+//sadece scope dışı erişim b isminde bir
+//değişkeni bu scope'ta hiç tanımıyor
+{
+  console.log(x); //ReferenceError: Cannot access 'x' before initialization
+  let x = 5; //burada x o blokta zaten var, sadece henüz "let x = 5" satırına
+//gelinmediği için initialize edilememiş
+}
+
 //a var ile tanımlandığı için erişilebilir
 //b ve c erişilemez çünkü blok dışından erişelemezler
 //let & const -> block scope
