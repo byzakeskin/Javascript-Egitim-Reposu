@@ -86,12 +86,14 @@ function scope() {
 scope();
 
 function degisken() {
-  let a = 1; //yalnızca bu fonksiyon içinde erişilebilir değer (local scope)
-  console.log(a);
+  let a = "degisken"; //yalnızca bu fonksiyon içinde erişilebilir değer (local scope)
+  //console.log(a);
 }
 degisken();
-//console.log(a);
-//Çalıştırdığımda: ReferenceError: a is not defined
+console.log(a);
+//Çalıştırdığımda: undefined
+//kodun alt satırlarında var a = 100 tanımı olduğundan dolayı
+//var hoisting ile tanım en tepeye taşınıyor ama değer atanmıyor, o yüzden undefined
 
 if (true) {
   console.log(x);
