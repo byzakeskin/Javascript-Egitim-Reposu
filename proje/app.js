@@ -1,7 +1,28 @@
-let gorevler = [
-    { id: 1, metin: "ekmek al", bitti: false },
-    { id: 2, metin: "faturayi ode", bitti: true }
-];
+const storageKey = "gorevler";
+
+function kaydet() {
+    localStorage.setItem(storageKey, JSON.stringify(gorevler));
+}
+
+function yukle() {
+    const kayit = localStorage.getItem(storageKey);
+
+    if (!kayit) {
+        return [
+            { id: 1, metin: "ekmek al", bitti: false },
+            { id: 2, metin: "faturayi ode", bitti: true }
+        ];
+    }
+
+    try {
+        return JSON.parse(kayit);
+    } catch (hata) {
+        console.log("Hata:", hata.message);
+        return [];
+    }
+}
+
+let gorevler = yukle();
 
 const input = document.querySelector("#task-input");
 const addBtn = document.querySelector("#add-btn");
@@ -9,6 +30,8 @@ const liste = document.querySelector(".card-body ul");
 const deleteAllBtn = document.querySelector("#delete-all-btn");
 
 function render() {
+    kaydet();
+
     liste.textContent = "";
 
     const liElemanlari = gorevler.map(function (gorev) {
