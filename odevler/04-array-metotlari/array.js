@@ -17,13 +17,13 @@ let sayilar = new Array(1, 2, 3);
 
 // Array.of ve Array.from
 let arr1 = Array.of(5);        // [5] 
-console.log(new Array(5));     // [ <5 empty items> ] — 5 elemanlı BOŞ array oluşturur
-console.log(Array.of(5));      // [5] — tek elemanlı array
+console.log(new Array(5));     // [ <5 empty items> ] - 5 elemanlı BOŞ array oluşturur
+console.log(Array.of(5));      // [5] - tek elemanlı array
 
-let arr2 = Array.from("abc");  // ["a","b","c"] — string'i array'e çevirir yani Array.from(), "array benzeri" (array-like) veya "iterable" olan şeyleri gerçek bir diziye çevirir.
+let arr2 = Array.from("abc");  // ["a","b","c"] - string'i array'e çevirir yani Array.from(), "array benzeri" (array-like) veya "iterable" olan şeyleri gerçek bir diziye çevirir.
 //"abc".split("") ile aynı sonucu verir, ama Array.from sadece string değil, Set, Map, NodeList gibi başka iterable'ları da diziye çevirebildiği için daha genel amaçlıdır.
 
-let arr3 = Array.from({length: 3}, (_, i) => i * 2); // [0, 2, 4] — length 3 olan bir array oluşturur ve her elemanı i*2 ile doldurur 
+let arr3 = Array.from({length: 3}, (_, i) => i * 2); // [0, 2, 4] - length 3 olan bir array oluşturur ve her elemanı i*2 ile doldurur 
 // "_" görünce direkt anlıyorum: bu parametre kasıtlı olarak kullanılmıyor
 
 

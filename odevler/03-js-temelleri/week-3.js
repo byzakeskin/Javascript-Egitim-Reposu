@@ -119,9 +119,9 @@ let sayilar = new Array(1, 2, 3);
 // Array.of ve Array.from
 let arr1 = Array.of(5);        // [5] 
 console.log(new Array(5));     // [ <5 empty items> ]
-console.log(Array.of(5));      // [5] — tek elemanlı array
+console.log(Array.of(5));      // [5] - tek elemanlı array
 
-let arr2 = Array.from("abc");  // ["a","b","c"] — string'i array'e çevirir
+let arr2 = Array.from("abc");  // ["a","b","c"] - string'i array'e çevirir
 let arr3 = Array.from({length: 3}, (_, i) => i * 2); // [0,2,4]
 
 let renkler = ["kırmızı", "mavi", "yeşil"];
@@ -141,7 +141,7 @@ arr.pop();           // sondan çıkar → [1,2,3], return: çıkan eleman
 arr.unshift(0);      // başa ekle → [0,1,2,3], return: yeni length
 arr.shift();         // baştan çıkar → [1,2,3], return: çıkan eleman
 
-//splice — (başlangıç, kaç eleman sil, ...eklenecekler)
+//splice - (başlangıç, kaç eleman sil, ...eklenecekler)
 let sayilar = [1, 2, 3, 4, 5];
 sayilar.splice(1, 2);           // index 1'den itibaren 2 eleman sil → [1,4,5]
 sayilar.splice(1, 0, "a", "b"); // index 1'e sil yapmadan ekle → [1,"a","b",4,5]
@@ -176,7 +176,7 @@ console.log(obj); // { a: 100, c: 3 }
 // varlık kontrolü
 console.log("a" in obj);              // true
 console.log(obj.hasOwnProperty("a")); // true
-console.log(obj.x === undefined);     // true — olmayan alan undefined döner
+console.log(obj.x === undefined);     // true - olmayan alan undefined döner
 
 const kisi = { ad: "Beyza", yas: 25, sehir: "Afyonkarahisar" };
 

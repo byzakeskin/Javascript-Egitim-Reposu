@@ -8,7 +8,7 @@ const users = [
 ]
 //users, bir array. Her elemanı bir object. Her object iki özellik (property) içeriyor: name (string) ve age (number).
 //const ile tanımlandığı için users değişkeninin kendisi yeniden atanamaz (yani users = [...] diyerek başka bir diziyle değiştirilemez), 
-//ama dizinin içeriğini değiştirmek (push, pop vb..) hâlâ mümkün — çünkü const sadece referansı sabitler, içeriği değil.
+//ama dizinin içeriğini değiştirmek (push, pop vb..) hâlâ mümkün - çünkü const sadece referansı sabitler, içeriği değil.
 
 users.forEach((user) => {
     console.log(user.name);
@@ -65,7 +65,7 @@ console.log(numbers.sort());
 //sort() parametresiz çağrıldığında her sayıyı önce string'e çevirir, sonra karakter karakter, 
 //sözlük sırasına (lexicographic order) göre karşılaştırır. 
 //Karşılaştırma karakter karakter yapılır: "10"'un ilk karakteri "1", "2"'nin ilk karakteri "2". "1" < "2" olduğu için
-//"10" bütünüyle "2"'den küçük kabul edilir — "10"'un ikinci karakterine ("0") hiç bakılmaz, 
+//"10" bütünüyle "2"'den küçük kabul edilir - "10"'un ikinci karakterine ("0") hiç bakılmaz, 
 //çünkü ilk karakterde fark zaten belli olmuştur.
 
 // Küçükten büyüğe
@@ -108,4 +108,3 @@ console.log(averageAge);
 
 // Mutate = orijinal veriyi kalıcı olarak değiştirir. 
 // immutable/non-mutating = orijinal veriyi olduğu gibi bırakıp, sonucu ayrı, yeni bir veri olarak döndürür.
-
