@@ -61,6 +61,8 @@ const denemeObj = {
     bos: undefined,
     tarih: new Date()
 };
+//Tahmin: stringify öncesi 5 key vardı bunlar; sayi, metin, fonksiyon, bos ve tarih 
+//Çıktıda bunları görmem gerektiğini düşünüyorum. 13, beyza nur keskin, bu bir fonksiyondur, undefined, Thu Aug 13 2026 16:38:45 GMT+0300
 
 console.log("karışık obje:", denemeObj);
 //{sayi: 13, metin: 'beyza nur keskin', bos: undefined, tarih: Thu Aug 13 2026 16:38:45 GMT+0300 (Türkiye Standart Saati), fonksiyon: ƒ}
@@ -71,6 +73,11 @@ console.log("stringify sonrasi:", stringifiedDenemeObj)
 const parsedDenemeObj = JSON.parse(stringifiedDenemeObj)
 console.log("parse sonrasi:", parsedDenemeObj)
 //parse sonrasi: {sayi: 13, metin: 'beyza nur keskin', tarih: '2026-08-13T13:41:48.255Z'}
+
+//Gerçek: stringify sonrası 3 key kaldı: sayi, metin, tarih
+//fonksiyon kayboldu çünkü JSON formatında fonksiyon diye bir veri tipi yokmuş
+//bos (undefined) kayboldu çünkü undefined da JSON'da karşılığı olmayan bir değermiş
+//tarih kaybolmadı ama tip değişti, Date nesnesiyken stringify sonrası stringe dönüştü
 
 //hiç yazılmamış bir key
 const varolamayanKey = localStorage.getItem("olmayanKey");
