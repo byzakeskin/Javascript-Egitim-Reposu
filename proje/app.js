@@ -1,5 +1,7 @@
 const storageKey = "gorevler";
-
+//kaydet burada sebebi ileride yeni bir state-değiştiren fonksiyon eklediğinde 
+//kaydet()'in unutma riskinin ortadan kalkması yani
+//kaydet()'i her birinin sonuna ayrı ayrı eklemek yerine render()'ın başına koymak daha iyi
 function kaydet() {
     localStorage.setItem(storageKey, JSON.stringify(gorevler));
 }
@@ -19,7 +21,9 @@ function yukle() {
     } catch (hata) {
         console.log("Hata:", hata.message);
         return [];
-    }
+    }//Tahmin: try/catch kaldırınca bozuk kayıtla sayfa çöker, ayrıca kaldırmadan önce elle manuel olarak
+    //applicationda gorevler değerini bozdum ve kayıtlarım yok oldu
+    //Gercek: Uncaught SyntaxError: "undefined" is not valid JSON (at VM45:1:1), sayfa render olmadı/boş kaldı
 }
 
 let gorevler = yukle();
