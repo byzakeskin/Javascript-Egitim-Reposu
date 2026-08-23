@@ -20,3 +20,5 @@ Mangodo staj süreci boyunca yapılan ödevlerin, günlük ilerleme raporların�
 - [x] Array metotları
 - [x] DOM manipülasyonu, array-driven UI mimarisi ve temel XSS güvenliği
 - [x] Scope, closures ve fonksiyonel array metotları (forEach, map, reduce, debounce)
+- [x] Asenkron JavaScript: Promise, async/await
+- [x] Fetch API ile dış kaynaktan veri çekme ve gelen veriyi kendi veri modeline dönüştürme
