@@ -6,27 +6,38 @@ function kaydet() {
     localStorage.setItem(storageKey, JSON.stringify(gorevler));
 }
 
-function yukle() {
+async function yukle() {
     const kayit = localStorage.getItem(storageKey);
 
-    if (!kayit) {
-        return [
-            { id: 1, metin: "ekmek al", bitti: false },
-            { id: 2, metin: "faturayi ode", bitti: true }
-        ];
+    if (kayit) {
+        try {
+            return JSON.parse(kayit);
+        } catch (hata) {
+            console.log("Hata:", hata.message);
+            return [];
+        }//Tahmin: try/catch kaldırınca bozuk kayıtla sayfa çöker, ayrıca kaldırmadan önce elle manuel olarak
+        //applicationda gorevler değerini bozdum ve kayıtlarım yok oldu
+        //Gercek: Uncaught SyntaxError: "undefined" is not valid JSON (at VM45:1:1), sayfa render olmadı/boş kaldı
     }
 
     try {
-        return JSON.parse(kayit);
+        const data = await fetch("https://jsonplaceholder.typicode.com/todos?_limit=5");
+        const veri = await data.json();
+
+        return veri.map(function (item) {
+            return {
+                id: item.id,
+                metin: item.title,
+                bitti: item.completed
+            };
+        });
     } catch (hata) {
         console.log("Hata:", hata.message);
         return [];
-    }//Tahmin: try/catch kaldırınca bozuk kayıtla sayfa çöker, ayrıca kaldırmadan önce elle manuel olarak
-    //applicationda gorevler değerini bozdum ve kayıtlarım yok oldu
-    //Gercek: Uncaught SyntaxError: "undefined" is not valid JSON (at VM45:1:1), sayfa render olmadı/boş kaldı
+    }
 }
 
-let gorevler = yukle();
+let gorevler = [];
 
 const input = document.querySelector("#task-input");
 const addBtn = document.querySelector("#add-btn");
@@ -116,4 +127,9 @@ deleteAllBtn.addEventListener("click", function () {
     render();
 });
 
-render();
+liste.textContent = "yükleniyor";
+
+yukle().then(function (veri) {
+    gorevler = veri;
+    render();
+});
