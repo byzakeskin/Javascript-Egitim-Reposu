@@ -248,3 +248,27 @@ fetch("https://jsonplaceholder.typicode.com/todos?_limit=5")
 //Tahmin: response.json() da bir Promise döndürür
 //Çıktı:
 //veri: Promise { <pending> }
+
+
+//Promise vs Task
+//Aynı olan şeyler; ikisi de sonucu şu an değil, 
+//iş bitince gelecek olan bir işi temsil ediyor. 
+//Task nasıl arka planda çalışan bir işi sarıp sonucu ileride veriyorsa,
+//Promise da aynı şekilde ağdan veri çekme, zamanlayıcı gibi işlerin sonucunu
+//ileride teslim ediyor.
+//Farklı olan; Task, .NET'in thread/task tabanlı gerçek paralel çalışma
+//altyapısına bağlı, Promise ise JavaScript'in tek thread'li event loop'una bağlı, 
+//gerçek paralellik yok, sadece bekleyen işler event loop'a göre sırayla işleniyor.
+//.then'in C#'taki karşılığı: Task.ContinueWith(...) yani Task bitince çalışacak
+//bir devam fonksiyonu bağlamak, .then'in yaptığı işin aynısı.
+
+//async/await
+//C# ve JS'de kelimeler ve amaç aynı.
+//Await koyduğum satır, beklediği şey sonuçlanana kadar o fonksiyonun devamını durduruyor,
+//ama thread'i bloklamıyor.
+//Yani mantık birebir örtüşüyor, sadece altında C#'ta Task,
+//JS'de Promise dönüyor.
+
+//8. maddedeki .then zinciri ile 9. maddedeki async/await karşılaştırması:
+//async/await daha rahat okunuyor, çünkü kod yukarıdan aşağı normal senkron
+//kod gibi, .then zincirinde her adımda yeni bir callback açıp kapatmak zorunda kalmıyorum.
