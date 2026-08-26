@@ -215,24 +215,36 @@ fetch("https://jsonplaceholder.typicode.com/todos?_limit=5")
     console.log("hata:", hata);
   });
 
-//fetch("https://jsonplaceholder.typicode.com/todos/bu-adres-yok-99999")
-//.then(response => {
-//    console.log("status:", response.status, "-", response.ok);
+fetch("https://jsonplaceholder.typicode.com/todos/bu-adres-yok-99999")
+.then(response => {
+   console.log("status:", response.status, "-", response.ok);
 
-//    if (!response.ok) {
-//        throw new Error("error status" + response.status);
-//    }
-//    return response.json();
-//})
-//.then(veri => {
-//    console.log("veri:", veri);
-//})
-//.catch(hata => {
-//    console.log("catch:", hata.message);
-//});
+   if (!response.ok) {
+       throw new Error("error status" + response.status);
+   }
+   return response.json();
+})
+.then(veri => {
+   console.log("veri:", veri);
+})
+.catch(hata => {
+   console.log("catch:", hata.message);
+});
+//Tahmin: //Tahmin: adres 
+//bozuk olduğu için status 404 gelir
+//Çıktı: 
+//status: 404 - false
+//catch: error status404
+//yani response.ok false döndü, 
+//if bloğu kendim throw ettiğim için 
+//catch çalıştı, aksi halde fetch bu durumu hata saymayacaktı
 
-//fetch("https://jsonplaceholder.typicode.com/todos?_limit=5")
-//.then(response => {
-//    let veri = response.json(); // return olmadan kullanım
-//    console.log("veri:", veri);
-//});
+
+fetch("https://jsonplaceholder.typicode.com/todos?_limit=5")
+.then(response => {
+   let veri = response.json(); // return olmadan kullanım
+   console.log("veri:", veri);
+});
+//Tahmin: response.json() da bir Promise döndürür
+//Çıktı:
+//veri: Promise { <pending> }
