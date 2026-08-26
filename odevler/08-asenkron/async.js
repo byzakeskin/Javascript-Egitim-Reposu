@@ -146,6 +146,37 @@ denemePromise("metin1")
 //"2:" satırı hiç yazılmadı, "hata" mesajı da hiç görünmedi,
 //catche bir hata mesajı düştü.
 
+//aynı zincir(length parantezsiz)
+
+denemePromise("metin1")
+  .then((sonuc) => {
+    console.log("1:", sonuc);
+    return sonuc.length;
+  })
+  .then((sonuc) => {
+    console.log("2:", sonuc);
+    throw new Error("hata");
+    return sonuc;
+  })
+  .then((sonuc) => {
+    console.log("3:", sonuc);
+    return sonuc;
+  })
+  .catch((hata) => {
+    console.log(hata.message);
+  });
+
+//Tahmin: bu sefer length bir metot çağrısı değil, direkt property erişimi
+//olduğu için TypeError almam, "1:" ve "2:" sırayla yazılır, throw edilen
+//hata da direkt catch'e düşer, 3. .then hiç çalışmaz çünkü throw zinciri kırıyor
+
+//Gerçek:
+//metin1
+//1: metin1 tamamlandı
+//2: 17
+//hata
+//3. .then hiç çalışmadı, throw edilen hata sondaki tek catch'e düştü
+
 async function calistir() {
   try {
     let sonuc1 = await denemePromise("metin1");
