@@ -6,6 +6,21 @@
 
 //localStorage.setItem(keyname, value)
 
+//localStorage ve sessionStorage, tarayıcıda veri saklamak için kullanılan iki farklı depolama yöntemidir.
+//localStorage'a kaydedilen veri, sekme veya tarayıcı kapansa bile silinmez; sen silmediğin sürece kalıcıdır.
+//sessionStorage'a kaydedilen veri ise sadece o sekmenin "oturumu" boyunca yaşar; sekme kapatıldığında veri de gider.
+//Yani aynı sayfayı yeni bir sekmede açsam bile, sessionStorage o yeni sekmede sıfırdan başlar, eski sekmedeki veriyi görmez.
+//localStorage ise her sekmede aynı kalır çünkü kaynağa bağlıdır.
+
+sessionStorage.setItem("test_session", "sessionStorage");
+localStorage.setItem("test_local", "localStorage");
+
+console.log("sessionStorage değeri:", sessionStorage.getItem("test_session"));
+console.log("localStorage değeri:", localStorage.getItem("test_local"));
+
+//Çıktı: sessionStorage.getItem("test_session") -> null
+//localStorage.getItem("test_local") -> localStorage
+
 localStorage.setItem("name","beyza");
 localStorage.setItem("surname", "keskin");
 
