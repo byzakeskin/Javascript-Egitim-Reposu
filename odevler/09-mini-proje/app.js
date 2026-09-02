@@ -30,7 +30,9 @@ async function loadPostsPromise() {
   const users = await usersRes.json();
 
   console.timeEnd("promise");
-  render(posts, users);
+  //render(posts, users);
+  const mergedPosts = merge(posts, users);
+  render(mergedPosts);
 }
 
 //loadPosts();
@@ -39,4 +41,36 @@ loadPostsPromise();
 //Promise.all'da ikisi aynı anda başlıyor (üst üste iki çubuk, Finish: 392ms).
 //toplam süre tekil sürelerin toplamı yerine en yavaş isteğin süresine yaklaşıyor.
 
+//.find() bir diziden tek eleman döndürüyor yani koşulu sağlayan ilk elemanı.
+//.map() ise diziyi baştan sona dönüştürüp yeni bir dizi döndürüyor. 
+//Her eleman için bir fonksiyon çalıştırılıyor ve o fonksiyonun dönüş değeri yeni dizinin elemanı oluyor. 
+//Burada orijinal dizi değişmeyecek, yeni bir dizi oluşacak.
 
+function merge(posts, users) { //Fonksiyon tanımı: merge adında, iki parametre alıyor: posts ve users
+  //.map () ile posts ve users dizilerini birleştirip yeni bir dizi döndüreceğim.
+  return posts.map(post => {//posts dizisinin her elemanı için parantez içindeki fonksiyonu(arrow function) çalıştıracağım, 
+    //dönen değerleri de yeni bir dizide toplayacağım. Amacım idleri eşleştirmek.
+    //return, merge fonksiyonum çağrıldığında, .map()'in ürettiği yeni diziyi geri döndürecek.
+    const author = users.find(u => u.id === post.userId);
+    //burada .map() içindeyim ve her post için users dizisinde userId ile eşleşen userı .find() ile buluyorum.
+    //.find(), koşulu sağlayan elemanı bulur bulmaz aramayı durdurarak o objeyi döndürüyor. Eğer bulamazsa undefined döndürüyor.
+    return { //return, dışarıdaki merge fonksiyonunun değil, arrow function'ın dönüş değeri.
+      id: post.id, //yeni objenin id alanına, orijinal postun idsini taşıyorum.
+      title: post.title,
+      body: post.body,
+      author: author ? author.name : "unknown" //author varsa author.name, yoksa "unknown" yazsın.
+    };
+  });
+}
+
+function render(mergedPosts) { //Fonksiyon tanımı: adı render ve mergedPosts adında tek parametre alıyor.
+  //merge()'in ürettiği birleştirilmiş dizi.
+  postList.innerHTML = ""; //bunu ekliyorum çünkü render fonksiyonuna arama filtresi eklendiğimde tekrar tekrar çağrılacak. 
+  //listeyi önce temizlemezsem, her çağrıda yeni <li>'ler eskilerin üstüne eklenir, liste gittikçe uzar, eski sonuçlar da ekranda kalır.
+  mergedPosts.forEach(post => { //forEach sadece dizinin her elemanı için verilen fonksiyonu çalıştıracak.
+    const li = document.createElement("li"); //boş, henüz sayfaya eklenmemiş bir <li> elemanı oluşturuyorum.
+    li.textContent = `${post.title} — ${post.author}`; //Yeni oluşturduğum <li> elemanının metin içeriği
+    postList.appendChild(li); //li sadece belleğimizde duruyordu, sayfada görünmüyordu. appendChild, bu elemanı postList (<ul>) elemanının içine ekliyor,
+    //bu satırdan sonra artık <li> sayfada görünür olabilecek.
+  });
+}
