@@ -37,6 +37,7 @@ async function loadPostsPromise() {
   //render(posts, users);
   const mergedPosts = merge(posts, users);
   render(mergedPosts);
+  allPosts = merge(posts, users); 
 }
 
 //loadPosts();
@@ -70,6 +71,16 @@ function merge(posts, users) {
   });
 }
 
+//Burada iki ayrı değişken tanımladım.
+//Başta ikisi de boş diziler.
+//İki tane yapma sebebim "allPosts" dizisi, API'den gelen
+//tam listeyi tutmak için. "currentPosts" o an ekranda görünen
+//listemi tutmak için. Böylece kullanıcı arama yaptığında, filtreyi
+//allPosts dizisine uygulayıp, currentPosts dizisini güncelleyebilirim.
+//currentPosts dizisi, render fonksiyonuna gönderilecek ve ekranda gösterilecek.
+
+
+let allPosts = []; 
 let currentPosts = []; //Bu değişken, en son ekrana basılan post listesini hafızada tutmak için kullanılacak.
 //Böylece kullanıcı bir <li>ye tıkladığında, hangi postun tıklandığını bulmak için bu diziyi kullanabilirim.
 
@@ -153,4 +164,18 @@ postList.addEventListener("click", async (event) => {
   //Elimde sayı olarak postId var. currentPosts dizisinde idsi bu sayıya eşit olan tek objeyi buluyorum
   //Bu objeyi clickedPost değişkenine atıyorum. Bu sayede console üzerinde tıklanan postun tüm bilgilerini görebileceğim
   console.log(clickedPost);
+});
+
+//input alanıma dinleyici koydum.
+searchInput.addEventListener("input", () => {
+  //input alanına ne yazıldıysa hata vermemesi için, küçük harfe çeviriyorum 
+  //ve baştaki ile sondaki boşlukları .trim() ile öğrendiğim gibi siliyorum
+  const query = searchInput.value.toLowerCase().trim();
+  
+  const filtered = allPosts.filter(post =>//tanımladığım allPosts dizisinden filtreleme yapıyorum
+    post.title.toLowerCase().includes(query) ||
+    post.author.toLowerCase().includes(query) //title veya author alanında arama yapıyorum
+  );
+
+  render(filtered); //filtrelenmiş diziyi render fonksiyonuna gönderiyorum
 });
