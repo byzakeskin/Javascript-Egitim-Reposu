@@ -85,3 +85,7 @@ h1 {
 .comment-item:first-child {
   border-top: none;
 }
+
+.post-header.read {
+  color: #a8a29a;
+}

@@ -97,6 +97,9 @@ function render(mergedPosts) {
     const li = document.createElement("li"); //boş, henüz sayfaya eklenmemiş bir <li> elemanı oluşturuyorum.
     const header = document.createElement("div");
     header.className = "post-header"; 
+    if (readPosts.has(post.id)) {
+      header.classList.add("read");
+    }//post daha önce okunduysa, css ile farklı görünmesi için read classı ekliyorum
     header.textContent = `${post.title} — ${post.author}`; //Yeni oluşturduğum <li> elemanının metin içeriği
     const details = document.createElement("div");
     details.className = "post-details";
@@ -144,6 +147,15 @@ postList.addEventListener("click", async (event) => {
   }
 
   details.style.display = "block"; //divi görünür yapıyorum
+  
+  if (!readPosts.has(postId)) {
+    readPosts.add(postId);
+    localStorage.setItem(readPostKey, JSON.stringify(Array.from(readPosts)));
+    clickedLi.querySelector(".post-header").classList.add("read");
+  }//Çoktan okunmuşsa tekrar okundu olarak işaretlemeye gerek olmadığı için,
+  //readPosts setine eklemeden önce kontrol ediyorum. 
+
+
   const post = currentPosts.find((p) => p.id === postId); //currentPosts dizisinde idsi postId ile eşit olan objeyi buluyorum
   if (commentsCache[postId]) {
     //eğer commentsCache'de postId ile eşleşen bir yorumlar dizisi varsa, onu kullanacağım
@@ -179,3 +191,10 @@ searchInput.addEventListener("input", () => {
 
   render(filtered); //filtrelenmiş diziyi render fonksiyonuna gönderiyorum
 });
+
+
+
+//localstorage
+const readPostsKey = "readPosts";
+let readPosts = JSON.parse(localStorage.getItem(readPostsKey)) || [];
+
