@@ -107,7 +107,7 @@ function renderPostDetails(container, post, comments) {
   const commentsContent = document.createElement("ul");
   comments.forEach((comment) => {
     const commentLi = document.createElement("li");
-    
+    commentLi.className = "comment-item";
     commentLi.textContent = `${comment.name} (${comment.email}): ${comment.body}`;
     commentsContent.appendChild(commentLi);
   });
@@ -140,7 +140,7 @@ postList.addEventListener("click", async (event) => {
     return;
   }
 
-  details.textContent = "Loading comments..."; //yorumlar yüklenene kadar kullanıcıya bilgi veriyorum
+  details.textContent = "Yorumlar Yükleniyor..."; //yorumlar yüklenene kadar kullanıcıya bilgi veriyorum
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${postId}/comments`,
   );
