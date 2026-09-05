@@ -2,6 +2,27 @@ const postList = document.getElementById("post-list");
 const searchInput = document.getElementById("search-input");
 //htmlde oluşturduğum input ve ul elementlerini burada kullanıcam.
 
+//Burada iki ayrı değişken tanımladım.
+//Başta ikisi de boş diziler.
+//İki tane yapma sebebim "allPosts" dizisi, API'den gelen
+//tam listeyi tutmak için. "currentPosts" o an ekranda görünen
+//listemi tutmak için. Böylece kullanıcı arama yaptığında, filtreyi
+//allPosts dizisine uygulayıp, currentPosts dizisini güncelleyebilirim.
+//currentPosts dizisi, render fonksiyonuna gönderilecek ve ekranda gösterilecek.
+
+let allPosts = [];
+let currentPosts = []; //Bu değişken, en son ekrana basılan post listesini hafızada tutmak için kullanılacak.
+//Böylece kullanıcı bir <li>ye tıkladığında, hangi postun tıklandığını bulmak için bu diziyi kullanabilirim.
+
+const commentsCache = {};
+
+//localstorage
+const readPostsKey = "readPosts";
+let readPosts = new Set(JSON.parse(localStorage.getItem(readPostsKey)) || []);
+//JSON.parse ile localStorage'dan okuduğum diziyi tekrar diziye çeviriyorum, hiç kayıt yoksa boş dizi kullanıyorum.
+//new Set(...) ile bu diziyi Set'e çeviriyorum çünkü render ve tıklama dinleyicisinde .has() ve .add() metodlarını kullanacağım,
+//bunlar sadece Set'te var, düz dizide yok.
+
 async function loadPosts() {
   console.time("fetch"); // fetch: 147.447021484375 ms
 
@@ -23,21 +44,32 @@ async function loadPosts() {
 }
 
 async function loadPostsPromise() {
-  console.time("promise"); //promise: 177.580078125 ms
+  try {
+    console.time("promise"); //promise: 177.580078125 ms
 
-  const [postsRes, usersRes] = await Promise.all([
-    fetch("https://jsonplaceholder.typicode.com/posts?_limit=20"),
-    fetch("https://jsonplaceholder.typicode.com/users"),
-  ]);
+    const [postsRes, usersRes] = await Promise.all([
+      fetch("https://jsonplaceholder.typicode.com/posts?_limit=20"),
+      fetch("https://jsonplaceholder.typicode.com/users"),
+    ]);
 
-  const posts = await postsRes.json();
-  const users = await usersRes.json();
+    if (!postsRes.ok || !usersRes.ok) {
+      throw new Error("Sunucudan geçerli bir cevap alınamadı");
+    }
 
-  console.timeEnd("promise");
-  //render(posts, users);
-  const mergedPosts = merge(posts, users);
-  render(mergedPosts);
-  allPosts = merge(posts, users); 
+    const posts = await postsRes.json();
+    const users = await usersRes.json();
+
+    console.timeEnd("promise");
+
+    allPosts = merge(posts, users); //merge'i sadece burada, bir kez çağırıyorum ve doğrudan allPosts'a atıyorum.
+    //Önceden hem mergedPosts değişkenine hem allPosts'a ayrı ayrı atayıp merge'i iki kez çağırıyordum, gereksizdi.
+    render(allPosts);
+  } catch (error) {
+    postList.innerHTML = "";
+    const errorLi = document.createElement("li");
+    errorLi.textContent = "Gönderiler yüklenemedi. Lütfen internet bağlantınızı kontrol edip sayfayı yenileyin.";
+    postList.appendChild(errorLi);
+  }
 }
 
 //loadPosts();
@@ -71,21 +103,6 @@ function merge(posts, users) {
   });
 }
 
-//Burada iki ayrı değişken tanımladım.
-//Başta ikisi de boş diziler.
-//İki tane yapma sebebim "allPosts" dizisi, API'den gelen
-//tam listeyi tutmak için. "currentPosts" o an ekranda görünen
-//listemi tutmak için. Böylece kullanıcı arama yaptığında, filtreyi
-//allPosts dizisine uygulayıp, currentPosts dizisini güncelleyebilirim.
-//currentPosts dizisi, render fonksiyonuna gönderilecek ve ekranda gösterilecek.
-
-
-let allPosts = []; 
-let currentPosts = []; //Bu değişken, en son ekrana basılan post listesini hafızada tutmak için kullanılacak.
-//Böylece kullanıcı bir <li>ye tıkladığında, hangi postun tıklandığını bulmak için bu diziyi kullanabilirim.
-
-const commentsCache = {};
-
 function render(mergedPosts) {
   //Fonksiyon tanımı: adı render ve mergedPosts adında tek parametre alıyor.
   //merge()'in ürettiği birleştirilmiş dizi.
@@ -96,10 +113,10 @@ function render(mergedPosts) {
     //forEach sadece dizinin her elemanı için verilen fonksiyonu çalıştıracak.
     const li = document.createElement("li"); //boş, henüz sayfaya eklenmemiş bir <li> elemanı oluşturuyorum.
     const header = document.createElement("div");
-    header.className = "post-header"; 
+    header.className = "post-header";
     if (readPosts.has(post.id)) {
       header.classList.add("read");
-    }//post daha önce okunduysa, css ile farklı görünmesi için read classı ekliyorum
+    } //post daha önce okunduysa, css ile farklı görünmesi için read classı ekliyorum
     header.textContent = `${post.title} — ${post.author}`; //Yeni oluşturduğum <li> elemanının metin içeriği
     const details = document.createElement("div");
     details.className = "post-details";
@@ -136,7 +153,7 @@ postList.addEventListener("click", async (event) => {
   //closest("li") ise, tıklanan elemanın kendisi <li> değilse, en yakın üst <li>yi buluyor.
   if (!clickedLi) return; //hiçbir <li>'ye tıklanmadıysa fonksiyondan çık
 
-  const postId = Number(clickedLi.dataset.id); //lickedLi.dataset.id, biraz önce renderda yapıştırdığımız etiketi okuyor ama string olarak döndürüyor.
+  const postId = Number(clickedLi.dataset.id); //clickedLi.dataset.id, biraz önce renderda yapıştırdığımız etiketi okuyor ama string olarak döndürüyor.
   //Number() ile sayıya çeviriyorum.
 
   const details = clickedLi.querySelector(".post-details"); //<li> içindeki .post-details divini buluyorum
@@ -147,14 +164,13 @@ postList.addEventListener("click", async (event) => {
   }
 
   details.style.display = "block"; //divi görünür yapıyorum
-  
+
   if (!readPosts.has(postId)) {
     readPosts.add(postId);
-    localStorage.setItem(readPostKey, JSON.stringify(Array.from(readPosts)));
+    localStorage.setItem(readPostsKey, JSON.stringify(Array.from(readPosts)));
     clickedLi.querySelector(".post-header").classList.add("read");
-  }//Çoktan okunmuşsa tekrar okundu olarak işaretlemeye gerek olmadığı için,
-  //readPosts setine eklemeden önce kontrol ediyorum. 
-
+  } //Çoktan okunmuşsa tekrar okundu olarak işaretlemeye gerek olmadığı için,
+  //readPosts setine eklemeden önce kontrol ediyorum.
 
   const post = currentPosts.find((p) => p.id === postId); //currentPosts dizisinde idsi postId ile eşit olan objeyi buluyorum
   if (commentsCache[postId]) {
@@ -163,38 +179,35 @@ postList.addEventListener("click", async (event) => {
     return;
   }
 
-  details.textContent = "Yorumlar Yükleniyor..."; //yorumlar yüklenene kadar kullanıcıya bilgi veriyorum
-  const response = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${postId}/comments`,
-  );
-  const comments = await response.json();
+  try {
+    details.textContent = "Yorumlar Yükleniyor..."; //yorumlar yüklenene kadar kullanıcıya bilgi veriyorum
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${postId}/comments`,
+    );
+    if (!response.ok) {
+      throw new Error("Yorumlar alınamadı");
+    }
+    const comments = await response.json();
 
-  commentsCache[postId] = comments;
-  renderPostDetails(details, post, comments);
-
-  const clickedPost = currentPosts.find((p) => p.id === postId);
-  //Elimde sayı olarak postId var. currentPosts dizisinde idsi bu sayıya eşit olan tek objeyi buluyorum
-  //Bu objeyi clickedPost değişkenine atıyorum. Bu sayede console üzerinde tıklanan postun tüm bilgilerini görebileceğim
-  console.log(clickedPost);
+    commentsCache[postId] = comments;
+    renderPostDetails(details, post, comments);
+  } catch (error) {
+    details.textContent = "Yorumlar yüklenemedi, lütfen tekrar deneyin.";
+  }
 });
 
 //input alanıma dinleyici koydum.
 searchInput.addEventListener("input", () => {
-  //input alanına ne yazıldıysa hata vermemesi için, küçük harfe çeviriyorum 
+  //input alanına ne yazıldıysa hata vermemesi için, küçük harfe çeviriyorum
   //ve baştaki ile sondaki boşlukları .trim() ile öğrendiğim gibi siliyorum
   const query = searchInput.value.toLowerCase().trim();
-  
-  const filtered = allPosts.filter(post =>//tanımladığım allPosts dizisinden filtreleme yapıyorum
-    post.title.toLowerCase().includes(query) ||
-    post.author.toLowerCase().includes(query) //title veya author alanında arama yapıyorum
+
+  const filtered = allPosts.filter(
+    (post) =>
+      //tanımladığım allPosts dizisinden filtreleme yapıyorum
+      post.title.toLowerCase().includes(query) ||
+      post.author.toLowerCase().includes(query), //title veya author alanında arama yapıyorum
   );
 
   render(filtered); //filtrelenmiş diziyi render fonksiyonuna gönderiyorum
 });
-
-
-
-//localstorage
-const readPostsKey = "readPosts";
-let readPosts = JSON.parse(localStorage.getItem(readPostsKey)) || [];
-
