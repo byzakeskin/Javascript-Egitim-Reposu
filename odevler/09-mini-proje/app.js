@@ -88,7 +88,7 @@ function render(mergedPosts) {
     header.className = "post-header"; 
     header.textContent = `${post.title} — ${post.author}`; //Yeni oluşturduğum <li> elemanının metin içeriği
     const details = document.createElement("div");
-    
+    details.className = "post-details";
     details.style.display = "none";
     li.dataset.id = post.id; //etiketleme satırı. Bu satır, <li> elemanımıza görünmeyen bir etiket bilgisi ekliyor: data-id="3" gibi.
     li.appendChild(header);
