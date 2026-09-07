@@ -96,9 +96,9 @@ function merge(posts, users) {
     return {
       //return, dışarıdaki merge fonksiyonunun değil, arrow function'ın dönüş değeri.
       id: post.id, //yeni objenin id alanına, orijinal postun idsini taşıyorum.
-      title: post.title,
-      body: post.body,
-      author: author ? author.name : "unknown", //author varsa author.name, yoksa "unknown" yazsın.
+      baslik: post.title,
+      govde: post.body,
+      yazar: author ? author.name : "unknown", //author varsa author.name, yoksa "unknown" yazsın.
     };
   });
 }
@@ -117,7 +117,7 @@ function render(mergedPosts) {
     if (readPosts.has(post.id)) {
       header.classList.add("read");
     } //post daha önce okunduysa, css ile farklı görünmesi için read classı ekliyorum
-    header.textContent = `${post.title} — ${post.author}`; //Yeni oluşturduğum <li> elemanının metin içeriği
+    header.textContent = `${post.baslik} — ${post.yazar}`; //Yeni oluşturduğum <li> elemanının metin içeriği
     const details = document.createElement("div");
     details.className = "post-details";
     details.style.display = "none";
@@ -132,7 +132,7 @@ function render(mergedPosts) {
 function renderPostDetails(container, post, comments) {
   container.innerHTML = "";
   const body = document.createElement("p");
-  body.textContent = post.body;
+  body.textContent = post.govde;
   container.appendChild(body);
 
   const commentsContent = document.createElement("ul");
@@ -205,8 +205,8 @@ searchInput.addEventListener("input", () => {
   const filtered = allPosts.filter(
     (post) =>
       //tanımladığım allPosts dizisinden filtreleme yapıyorum
-      post.title.toLowerCase().includes(query) ||
-      post.author.toLowerCase().includes(query), //title veya author alanında arama yapıyorum
+      post.baslik.toLowerCase().includes(query) ||
+      post.yazar.toLowerCase().includes(query), //baslik veya yazar alanında arama yapıyorum
   );
 
   render(filtered); //filtrelenmiş diziyi render fonksiyonuna gönderiyorum
