@@ -47,18 +47,46 @@ app.get("/gonderiler", function (req, res) {
     res.json(zenginGonderiler);
 });
 
+app.get("/gonderiler/:id", function (req, res) {
+    const id = Number(req.params.id);
+//Test 1: /gonderiler her kayitta yazar alani var mi
+//Tahmin: Bu alanı görüntüleyebileceğimi düşünüyorum
+//Gercek: Yazar isimlerini alabiliyorum, her kayitta yazar alani var
+    const gonderi = gonderiler.find(function (g) {
+        return g.id === id;
+    });
+
+    if (!gonderi) {
+        return res.status(404).json({ hata: "gönderi bulunamadı" });
+    }
+
+    const yazar = kullanicilar.find(function (kullanici) {
+        return kullanici.id === gonderi.kullaniciId;
+    });
+
+    res.json({
+        id: gonderi.id,
+        baslik: gonderi.baslik,
+        govde: gonderi.govde,
+        yazar: yazar ? yazar.ad : "Bilinmiyor"
+    });
+});
+
 app.get("/kullanicilar", function (req, res) {
     res.json(kullanicilar);
 });
-
+//Test 2: /kullanicilar ham kullanici listesini donuyor mu
+//Tahmin: id ve ad alanlarını görüntüleyebilirim
+//Gercek: Evet, ham kullanıcı listesini döndürüyor
 app.listen(port, function () {
     console.log(`Sunucu http://localhost:${port} adresinde çalışıyor`);
 });
 
-// Test 1: /gonderiler her kayitta yazar alani var mi
-//Tahmin: 
-//Gercek: 
 
-// Test 2: /kullanicilar ham kullanici listesini donuyor mu
-//Tahmin: 
-//Gercek:
+//Test 3: var olan bir id, ornegin /gonderiler/3
+//Tahmin: Var olan id'ye ait gönderiyi ve yazarını görebileceğimi düşünüyorum
+//Gercek: Evet, var olan id'ye ait gönderiyi ve yazarını görebiliyorum çünkü tanımlı
+
+//Test 4: olmayan bir id, /gonderiler/999
+//Tahmin: 404 hatası alacağımı düşünüyorum çünkü böyle bir id tanımlamadım
+//Gercek: Evet, 404 hatası alıyorum
